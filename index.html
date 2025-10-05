@@ -435,20 +435,57 @@
         function toggleTheme() {
             const body = document.getElementById('mainBody');
             const cards = document.querySelectorAll('.card');
+            const style = document.createElement('style');
             
             if (body.classList.contains('bg-light')) {
                 body.classList.remove('bg-light');
                 body.classList.add('bg-dark');
+                
+                // Add dark theme styles
+                style.id = 'darkThemeStyles';
+                style.innerHTML = `
+                    .bg-dark .option-btn {
+                        color: white !important;
+                        border-color: white !important;
+                    }
+                    .bg-dark .option-btn:hover {
+                        background-color: white !important;
+                        color: black !important;
+                    }
+                    .bg-dark .option-btn.active {
+                        background-color: white !important;
+                        color: black !important;
+                    }
+                    .bg-dark .btn-success {
+                        background-color: #198754 !important;
+                        border-color: #198754 !important;
+                        color: white !important;
+                    }
+                    .bg-dark .btn-danger {
+                        background-color: #dc3545 !important;
+                        border-color: #dc3545 !important;
+                        color: white !important;
+                    }
+                `;
+                document.head.appendChild(style);
+                
                 cards.forEach(card => {
                     if (!card.querySelector('.bg-dark.text-white')) {
-                        card.classList.add('bg-dark', 'text-white', 'border', 'border-secondary');
+                        card.classList.add('bg-dark', 'text-white', 'border', 'border-light');
                     }
                 });
             } else {
                 body.classList.remove('bg-dark');
                 body.classList.add('bg-light');
+                
+                // Remove dark theme styles
+                const existingStyle = document.getElementById('darkThemeStyles');
+                if (existingStyle) {
+                    existingStyle.remove();
+                }
+                
                 cards.forEach(card => {
-                    card.classList.remove('bg-dark', 'text-white', 'border', 'border-secondary');
+                    card.classList.remove('bg-dark', 'text-white', 'border', 'border-light');
                 });
             }
         }
