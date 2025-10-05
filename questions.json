@@ -1,0 +1,242 @@
+[
+    {
+        "q": "A certain amount earns simple interest of Rs. 1750 after 5 years. If the rate of interest is 25%, what will be the Principal?",
+        "options": ["Rs. 1000", "Rs. 1200", "Rs. 1750", "Rs. 1400"],
+        "correct": 3,
+        "explanation": "1750/5 = 350; 25% → 350; 100% → 1400"
+    },
+    {
+        "q": "A sum fetched a total simple interest of Rs. 4200 at the rate of 5% p.a. in 5 years. What is the sum?",
+        "options": ["Rs. 1680", "Rs. 42000", "Rs. 16800", "Rs. 25000"],
+        "correct": 2,
+        "explanation": "4200/5 = 840; 5% → 840; 100% → 16800"
+    },
+    {
+        "q": "A sum of Rs. 12,500 amounts to Rs. 15,500 in 4 years at the rate of simple interest. What is the rate of interest?",
+        "options": ["6%", "10%", "8%", "12%"],
+        "correct": 0,
+        "explanation": "SI = 15500 - 12500 = 3000; 3000 = 12500×4×r/100; r = 6%"
+    },
+    {
+        "q": "A man took a loan from a bank at the rate of 12% p.a. simple interest. After 3 years he had to pay Rs. 5400 interest only. The principal amount borrowed was:",
+        "options": ["Rs. 2000", "Rs. 15000", "Rs. 10000", "Rs. 20000"],
+        "correct": 1,
+        "explanation": "P = 100×5400/(12×3) = 15000"
+    },
+    {
+        "q": "What would be the annual interest accrued on a deposit of Rs. 10,000 in a bank that pays 4% per annum rate of simple interest?",
+        "options": ["Rs. 1000", "Rs. 500", "Rs. 1200", "Rs. 400"],
+        "correct": 3,
+        "explanation": "SI = 10000 × 4 × 1 / 100 = 400"
+    },
+    {
+        "q": "Calculate the simple interest on a loan of $2,000 taken for 2 years at an interest rate of 6% per year.",
+        "options": ["$520", "$240", "$420", "$250"],
+        "correct": 1,
+        "explanation": "SI = 2000 × 6 × 2 / 100 = 240"
+    },
+    {
+        "q": "Mohit pays Rs 9000 as an amount on the sum of Rs 7000 that he had borrowed for 2 years. Find the rate of interest.",
+        "options": ["15%", "18%", "14.29%", "20%"],
+        "correct": 2,
+        "explanation": "2000 = 7000×2×r/100; r = 14.29%"
+    },
+    {
+        "q": "Rishav takes a loan of Rs 10000 from a bank for a period of 1 year. The rate of interest is 10% per annum. Find the amount he has to pay at the end of a year.",
+        "options": ["Rs. 10000", "Rs. 1200", "Rs. 11000", "Rs. 1500"],
+        "correct": 2,
+        "explanation": "SI = 1000; Amount = P + SI = 10000 + 1000 = 11000"
+    },
+    {
+        "q": "Namita borrowed Rs 50,000 for 3 years at the rate of 4% per annum. Find the interest accumulated at the end of 3 years.",
+        "options": ["Rs. 12000", "Rs. 6000", "Rs. 2000", "Rs. 10000"],
+        "correct": 1,
+        "explanation": "SI = 50000×3×4/100 = 6000"
+    },
+    {
+        "q": "A man invested Rs. 2400 at the rate of 20% p.a. on simple interest for T years and received Rs. 1440 as interest. Find 2T years.",
+        "options": ["6 years", "3 years", "8 years", "10 years"],
+        "correct": 0,
+        "explanation": "20% → 480; 1440/t = 480; t = 3; 2T = 6 years"
+    },
+    {
+        "q": "A certain amount earns simple interest of Rs. 1500 after 5 years. If the rate of interest is 25%, what will be the Principal?",
+        "options": ["Rs. 1000", "Rs. 1200", "Rs. 350", "Rs. 1400"],
+        "correct": 1,
+        "explanation": "1500/5 = 300; 25% → 300; 100% → 1200"
+    },
+    {
+        "q": "A man took a loan from a bank at the rate of 10% p.a. simple interest. After 3 years he had to pay Rs. 6000 interest only. The principal amount borrowed was:",
+        "options": ["Rs. 18000", "Rs. 20000", "Rs. 10000", "Rs. 28000"],
+        "correct": 1,
+        "explanation": "P = 100×6000/(10×3) = 20000"
+    },
+    {
+        "q": "Calculate the simple interest on a loan of $2,000 taken for 2 years at an interest rate of 5% per year.",
+        "options": ["$520", "$200", "$420", "$250"],
+        "correct": 1,
+        "explanation": "SI = 2000 × 2 × 5 / 100 = 200"
+    },
+    {
+        "q": "Arun pays Rs 9000 as an amount on the sum of Rs 7000 that he had borrowed for 2 years. Find the rate of interest.",
+        "options": ["15%", "18%", "14.29%", "20%"],
+        "correct": 2,
+        "explanation": "2000 = 7000×2×r/100; r = 14.29%"
+    },
+    {
+        "q": "Grace takes a loan of Rs 20000 from a bank for a period of 1 year. The rate of interest is 10% per annum. Find the amount to pay at the end of a year.",
+        "options": ["Rs. 10000", "Rs. 12000", "Rs. 22000", "Rs. 15000"],
+        "correct": 2,
+        "explanation": "SI = 2000; Amount = 20000 + 2000 = 22000"
+    },
+    {
+        "q": "A man invested Rs. 12000 at the rate of 10% p.a. and earned simple interest of Rs. 7200. Find the time period.",
+        "options": ["6 years", "3 years", "8 years", "10 years"],
+        "correct": 0,
+        "explanation": "1200 → 1 year; 7200 → 6 years"
+    },
+    {
+        "q": "What is the time period for which Rs. 8000 amounts to Rs. 12000 at 20% p.a. of simple interest?",
+        "options": ["2 years", "2.5 years", "3 years", "4 years"],
+        "correct": 1,
+        "explanation": "4000 = 8000×N×20/100; N = 2.5 years"
+    },
+    {
+        "q": "A person takes a loan of Rs. 200 at 5% simple interest. He returns Rs. 100 at the end of one year. To clear his dues at the end of 2 years, he would pay:",
+        "options": ["Rs. 115.5", "Rs. 125.5", "Rs. 110", "None of these"],
+        "correct": 0,
+        "explanation": "Year I interest = 10, paid 90 principal; Year II interest on 110 = 5.5; Total = 115.5"
+    },
+    {
+        "q": "A sum fetched a total simple interest of Rs. 4016.25 at the rate of 18% p.a. in 5 years. What is the sum?",
+        "options": ["Rs. 4462.5", "Rs. 8935", "Rs. 5866", "Rs. 8500"],
+        "correct": 0,
+        "explanation": "P = 4016.25×100/(5×18) = 4462.5"
+    },
+    {
+        "q": "How much time will it take for an amount of Rs. 450 to yield Rs. 81 as interest at 5% per annum of simple interest?",
+        "options": ["3.5 years", "3.6 years", "4.2 years", "5 years"],
+        "correct": 1,
+        "explanation": "81 = 450×N×5/100; N = 3.6 years"
+    },
+    {
+        "q": "Reena took a loan of Rs. 1200 with simple interest for as many years as the rate of interest. If she paid Rs. 432 as interest, what was the rate of interest?",
+        "options": ["3.6%", "4.6%", "6%", "4%"],
+        "correct": 2,
+        "explanation": "432 = 1200×R×R/100; R² = 36; R = 6%"
+    },
+    {
+        "q": "Simple interest on Rs. 4,000 for 4 years is Rs. 2000. Find the rate of interest.",
+        "options": ["3.6%", "4.6%", "12.5%", "4%"],
+        "correct": 2,
+        "explanation": "2000 = 4000×4×R/100; R = 12.5%"
+    },
+    {
+        "q": "What would be the annual interest accrued on a deposit of Rs. 12,000 in a bank that pays 4% per annum rate of simple interest?",
+        "options": ["Rs. 400", "Rs. 480", "Rs. 360", "Rs. 120"],
+        "correct": 1,
+        "explanation": "SI = 12000×1×4/100 = 480"
+    },
+    {
+        "q": "When the interest is payable on the principal only, it is called:",
+        "options": ["Compound Interest", "Simple Interest", "Simply Interest", "Amount"],
+        "correct": 1,
+        "explanation": "Simple Interest is calculated only on the principal amount"
+    },
+    {
+        "q": "Interest calculated for loan in a bank is:",
+        "options": ["Compound Interest", "Simple Interest", "Based on bank", "Based on account holder"],
+        "correct": 2,
+        "explanation": "Interest type depends on bank policies"
+    },
+    {
+        "q": "What is the time period for which Rs. 6000 amounts to Rs. 12000 at 20% p.a. of simple interest?",
+        "options": ["2 years", "5 years", "3 years", "4 years"],
+        "correct": 1,
+        "explanation": "6000 = 6000×N×20/100; N = 5 years"
+    },
+    {
+        "q": "A sum of Rs. 12500 amounts to Rs. 15500 in 4 years. Find the rate of interest.",
+        "options": ["6%", "10%", "8%", "12%"],
+        "correct": 0,
+        "explanation": "SI = 3000; 3000 = 12500×4×r/100; r = 6%"
+    },
+    {
+        "q": "A sum fetched a total simple interest of Rs. 2400 at the rate of 5% p.a. in 5 years. What is the sum?",
+        "options": ["Rs. 1680", "Rs. 4200", "Rs. 9600", "Rs. 2500"],
+        "correct": 2,
+        "explanation": "2400 = P×5×5/100; P = 9600"
+    },
+    {
+        "q": "A sum of Rs. 15000 amounts to Rs. 16500 in 4 years at simple interest. What is the rate of interest?",
+        "options": ["2.5%", "10%", "8%", "12%"],
+        "correct": 0,
+        "explanation": "1500 = 15000×4×R/100; R = 2.5%"
+    },
+    {
+        "q": "A man took a loan at 9% p.a. simple interest. After 6 years he paid Rs. 5400 interest. The principal amount borrowed was:",
+        "options": ["Rs. 2000", "Rs. 10000", "Rs. 15000", "Rs. 20000"],
+        "correct": 1,
+        "explanation": "P = 100×5400/(9×6) = 10000"
+    },
+    {
+        "q": "Calculate the simple interest on a loan of $7,000 taken for 3 years at an interest rate of 12% per year.",
+        "options": ["$5020", "$2520", "$420", "$2550"],
+        "correct": 1,
+        "explanation": "SI = 7000 × 12 × 3 / 100 = 2520"
+    },
+    {
+        "q": "Mohit pays Rs 7500 as an amount on the sum of Rs 4500 that he had borrowed for 2 years. Find the rate of interest.",
+        "options": ["15%", "18%", "33.33%", "20%"],
+        "correct": 2,
+        "explanation": "3000 = 4500×2×R/100; R = 33.33%"
+    },
+    {
+        "q": "Which formula is WRONG?",
+        "options": ["Amount = Principle - Interest", "Amount = Principle + Interest", "Interest = Amount - Principle", "Principle = Amount - Interest"],
+        "correct": 0,
+        "explanation": "Amount cannot be less than Principle in simple interest"
+    },
+    {
+        "q": "Ms. Aana Paul paid interest on principal plus interest of previous years. What type of interest?",
+        "options": ["Compound Interest", "Simple Interest", "Simply Interest", "Amount"],
+        "correct": 0,
+        "explanation": "Compound Interest includes interest on interest"
+    },
+    {
+        "q": "Interest calculated for fixed deposit in a bank is:",
+        "options": ["Compound Interest", "Simple Interest", "Based on bank", "Based on account holder"],
+        "correct": 0,
+        "explanation": "Fixed deposits typically use compound interest"
+    },
+    {
+        "q": "A sum of Rs. 12,500 amounts to Rs. 15,500 in 4 years. Find the simple interest.",
+        "options": ["Rs. 2500", "Rs. 3000", "Rs. 3500", "Rs. 4000"],
+        "correct": 1,
+        "explanation": "SI = 15500 - 12500 = 3000"
+    },
+    {
+        "q": "Nancy borrowed Rs 50,000 for 3 years at 4% per annum. Find the total amount to be paid.",
+        "options": ["Rs. 54000", "Rs. 56000", "Rs. 58000", "Rs. 60000"],
+        "correct": 1,
+        "explanation": "SI = 6000; Amount = 50000 + 6000 = 56000"
+    },
+    {
+        "q": "What principal will amount to Rs. 11,000 in 1 year at 10% simple interest?",
+        "options": ["Rs. 10000", "Rs. 9000", "Rs. 11000", "Rs. 12000"],
+        "correct": 0,
+        "explanation": "11000 = P(1.1); P = 10000"
+    },
+    {
+        "q": "What is the principal if simple interest earned is Rs. 1440 at 20% for 3 years?",
+        "options": ["Rs. 2000", "Rs. 2400", "Rs. 2800", "Rs. 3000"],
+        "correct": 1,
+        "explanation": "1440 = P×3×20/100; P = 2400"
+    },
+    {
+        "q": "Rs. 5000 at 8% p.a. for 2 years yields what simple interest?",
+        "options": ["Rs. 600", "Rs. 700", "Rs. 800", "Rs. 900"],
+        "correct": 2,
+        "explanation": "SI = 5000×8×2/100 = 800"
+    }
+]

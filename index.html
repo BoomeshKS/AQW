@@ -14,19 +14,19 @@
                 <!-- Header -->
                 <div class="card shadow-sm mb-4 border-0">
                     <div class="card-body text-center py-4">
-                        <h1 class="display-5 fw-bold mb-3">Simple Interest Quiz</h1>
-                        <p class="lead text-muted mb-3">Test Your Knowledge - 40 Questions</p>
+                        <h1 class="display-5 fw-bold mb-3 text-dark">Simple Interest Quiz</h1>
+                        <p class="lead text-muted mb-3">Test Your Knowledge - <span id="totalQuestions">40</span> Questions</p>
                         <div class="d-flex justify-content-center gap-3 flex-wrap">
-                            <button class="btn btn-dark" onclick="toggleTheme()">
+                            <button class="btn btn-outline-dark" id="themeToggleBtn" onclick="toggleTheme()">
                                 <i class="bi bi-moon-fill me-2"></i>Toggle Theme
                             </button>
-                            <span class="badge bg-dark fs-6 px-4 py-2">Score: <span id="score">0</span>/40</span>
+                            <span class="badge bg-dark fs-6 px-4 py-2" id="scoreBadge">Score: <span id="score">0</span>/<span id="totalScore">40</span></span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Formula Card -->
-                <div class="card shadow-sm mb-4 border-0">
+                <div class="card shadow-sm mb-4 border-0" id="formulaCard">
                     <div class="card-body bg-dark text-white">
                         <h5 class="mb-3"><i class="bi bi-calculator me-2"></i>Key Formula</h5>
                         <p class="mb-2 fs-5"><strong>SI = (P × N × R) / 100</strong></p>
@@ -37,12 +37,15 @@
                 <!-- Questions -->
                 <div id="questionsContainer"></div>
 
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center gap-2 mt-4" id="paginationContainer"></div>
+
                 <!-- Result Summary -->
                 <div class="card shadow-sm border-0 mt-4">
                     <div class="card-body text-center">
-                        <h4 class="mb-3">Quiz Summary</h4>
-                        <p class="lead">Your Score: <span id="finalScore" class="fw-bold text-dark">0</span>/40</p>
-                        <button class="btn btn-dark" onclick="resetQuiz()">
+                        <h4 class="mb-3 text-dark">Quiz Summary</h4>
+                        <p class="lead">Your Score: <span id="finalScore" class="fw-bold text-dark">0</span>/<span id="finalTotalScore">40</span></p>
+                        <button class="btn btn-outline-dark" id="resetQuizBtn" onclick="resetQuiz()">
                             <i class="bi bi-arrow-clockwise me-2"></i>Reset Quiz
                         </button>
                     </div>
@@ -53,252 +56,28 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const questions = [
-            {
-                q: "A certain amount earns simple interest of Rs. 1750 after 5 years. If the rate of interest is 25%, what will be the Principal?",
-                options: ["Rs. 1000", "Rs. 1200", "Rs. 1750", "Rs. 1400"],
-                correct: 3,
-                explanation: "1750/5 = 350; 25% → 350; 100% → 1400"
-            },
-            {
-                q: "A sum fetched a total simple interest of Rs. 4200 at the rate of 5% p.a. in 5 years. What is the sum?",
-                options: ["Rs. 1680", "Rs. 42000", "Rs. 16800", "Rs. 25000"],
-                correct: 2,
-                explanation: "4200/5 = 840; 5% → 840; 100% → 16800"
-            },
-            {
-                q: "A sum of Rs. 12,500 amounts to Rs. 15,500 in 4 years at the rate of simple interest. What is the rate of interest?",
-                options: ["6%", "10%", "8%", "12%"],
-                correct: 0,
-                explanation: "SI = 15500 - 12500 = 3000; 3000 = 12500×4×r/100; r = 6%"
-            },
-            {
-                q: "A man took a loan from a bank at the rate of 12% p.a. simple interest. After 3 years he had to pay Rs. 5400 interest only. The principal amount borrowed was:",
-                options: ["Rs. 2000", "Rs. 15000", "Rs. 10000", "Rs. 20000"],
-                correct: 1,
-                explanation: "P = 100×5400/(12×3) = 15000"
-            },
-            {
-                q: "What would be the annual interest accrued on a deposit of Rs. 10,000 in a bank that pays 4% per annum rate of simple interest?",
-                options: ["Rs. 1000", "Rs. 500", "Rs. 1200", "Rs. 400"],
-                correct: 3,
-                explanation: "SI = 10000 × 4 × 1 / 100 = 400"
-            },
-            {
-                q: "Calculate the simple interest on a loan of $2,000 taken for 2 years at an interest rate of 6% per year.",
-                options: ["$520", "$240", "$420", "$250"],
-                correct: 1,
-                explanation: "SI = 2000 × 6 × 2 / 100 = 240"
-            },
-            {
-                q: "Mohit pays Rs 9000 as an amount on the sum of Rs 7000 that he had borrowed for 2 years. Find the rate of interest.",
-                options: ["15%", "18%", "14.29%", "20%"],
-                correct: 2,
-                explanation: "2000 = 7000×2×r/100; r = 14.29%"
-            },
-            {
-                q: "Rishav takes a loan of Rs 10000 from a bank for a period of 1 year. The rate of interest is 10% per annum. Find the amount he has to pay at the end of a year.",
-                options: ["Rs. 10000", "Rs. 1200", "Rs. 11000", "Rs. 1500"],
-                correct: 2,
-                explanation: "SI = 1000; Amount = P + SI = 10000 + 1000 = 11000"
-            },
-            {
-                q: "Namita borrowed Rs 50,000 for 3 years at the rate of 4% per annum. Find the interest accumulated at the end of 3 years.",
-                options: ["Rs. 12000", "Rs. 6000", "Rs. 2000", "Rs. 10000"],
-                correct: 1,
-                explanation: "SI = 50000×3×4/100 = 6000"
-            },
-            {
-                q: "A man invested Rs. 2400 at the rate of 20% p.a. on simple interest for T years and received Rs. 1440 as interest. Find 2T years.",
-                options: ["6 years", "3 years", "8 years", "10 years"],
-                correct: 0,
-                explanation: "20% → 480; 1440/t = 480; t = 3; 2T = 6 years"
-            },
-            {
-                q: "A certain amount earns simple interest of Rs. 1500 after 5 years. If the rate of interest is 25%, what will be the Principal?",
-                options: ["Rs. 1000", "Rs. 1200", "Rs. 350", "Rs. 1400"],
-                correct: 1,
-                explanation: "1500/5 = 300; 25% → 300; 100% → 1200"
-            },
-            {
-                q: "A man took a loan from a bank at the rate of 10% p.a. simple interest. After 3 years he had to pay Rs. 6000 interest only. The principal amount borrowed was:",
-                options: ["Rs. 18000", "Rs. 20000", "Rs. 10000", "Rs. 28000"],
-                correct: 1,
-                explanation: "P = 100×6000/(10×3) = 20000"
-            },
-            {
-                q: "Calculate the simple interest on a loan of $2,000 taken for 2 years at an interest rate of 5% per year.",
-                options: ["$520", "$200", "$420", "$250"],
-                correct: 1,
-                explanation: "SI = 2000 × 2 × 5 / 100 = 200"
-            },
-            {
-                q: "Arun pays Rs 9000 as an amount on the sum of Rs 7000 that he had borrowed for 2 years. Find the rate of interest.",
-                options: ["15%", "18%", "14.29%", "20%"],
-                correct: 2,
-                explanation: "2000 = 7000×2×r/100; r = 14.29%"
-            },
-            {
-                q: "Grace takes a loan of Rs 20000 from a bank for a period of 1 year. The rate of interest is 10% per annum. Find the amount to pay at the end of a year.",
-                options: ["Rs. 10000", "Rs. 12000", "Rs. 22000", "Rs. 15000"],
-                correct: 2,
-                explanation: "SI = 2000; Amount = 20000 + 2000 = 22000"
-            },
-            {
-                q: "A man invested Rs. 12000 at the rate of 10% p.a. and earned simple interest of Rs. 7200. Find the time period.",
-                options: ["6 years", "3 years", "8 years", "10 years"],
-                correct: 0,
-                explanation: "1200 → 1 year; 7200 → 6 years"
-            },
-            {
-                q: "What is the time period for which Rs. 8000 amounts to Rs. 12000 at 20% p.a. of simple interest?",
-                options: ["2 years", "2.5 years", "3 years", "4 years"],
-                correct: 1,
-                explanation: "4000 = 8000×N×20/100; N = 2.5 years"
-            },
-            {
-                q: "A person takes a loan of Rs. 200 at 5% simple interest. He returns Rs. 100 at the end of one year. To clear his dues at the end of 2 years, he would pay:",
-                options: ["Rs. 115.5", "Rs. 125.5", "Rs. 110", "None of these"],
-                correct: 0,
-                explanation: "Year I interest = 10, paid 90 principal; Year II interest on 110 = 5.5; Total = 115.5"
-            },
-            {
-                q: "A sum fetched a total simple interest of Rs. 4016.25 at the rate of 18% p.a. in 5 years. What is the sum?",
-                options: ["Rs. 4462.5", "Rs. 8935", "Rs. 5866", "Rs. 8500"],
-                correct: 0,
-                explanation: "P = 4016.25×100/(5×18) = 4462.5"
-            },
-            {
-                q: "How much time will it take for an amount of Rs. 450 to yield Rs. 81 as interest at 5% per annum of simple interest?",
-                options: ["3.5 years", "3.6 years", "4.2 years", "5 years"],
-                correct: 1,
-                explanation: "81 = 450×N×5/100; N = 3.6 years"
-            },
-            {
-                q: "Reena took a loan of Rs. 1200 with simple interest for as many years as the rate of interest. If she paid Rs. 432 as interest, what was the rate of interest?",
-                options: ["3.6%", "4.6%", "6%", "4%"],
-                correct: 2,
-                explanation: "432 = 1200×R×R/100; R² = 36; R = 6%"
-            },
-            {
-                q: "Simple interest on Rs. 4,000 for 4 years is Rs. 2000. Find the rate of interest.",
-                options: ["3.6%", "4.6%", "12.5%", "4%"],
-                correct: 2,
-                explanation: "2000 = 4000×4×R/100; R = 12.5%"
-            },
-            {
-                q: "What would be the annual interest accrued on a deposit of Rs. 12,000 in a bank that pays 4% per annum rate of simple interest?",
-                options: ["Rs. 400", "Rs. 480", "Rs. 360", "Rs. 120"],
-                correct: 1,
-                explanation: "SI = 12000×1×4/100 = 480"
-            },
-            {
-                q: "When the interest is payable on the principal only, it is called:",
-                options: ["Compound Interest", "Simple Interest", "Simply Interest", "Amount"],
-                correct: 1,
-                explanation: "Simple Interest is calculated only on the principal amount"
-            },
-            {
-                q: "Interest calculated for loan in a bank is:",
-                options: ["Compound Interest", "Simple Interest", "Based on bank", "Based on account holder"],
-                correct: 2,
-                explanation: "Interest type depends on bank policies"
-            },
-            {
-                q: "What is the time period for which Rs. 6000 amounts to Rs. 12000 at 20% p.a. of simple interest?",
-                options: ["2 years", "5 years", "3 years", "4 years"],
-                correct: 1,
-                explanation: "6000 = 6000×N×20/100; N = 5 years"
-            },
-            {
-                q: "A sum of Rs. 12500 amounts to Rs. 15500 in 4 years. Find the rate of interest.",
-                options: ["6%", "10%", "8%", "12%"],
-                correct: 0,
-                explanation: "SI = 3000; 3000 = 12500×4×r/100; r = 6%"
-            },
-            {
-                q: "A sum fetched a total simple interest of Rs. 2400 at the rate of 5% p.a. in 5 years. What is the sum?",
-                options: ["Rs. 1680", "Rs. 4200", "Rs. 9600", "Rs. 2500"],
-                correct: 2,
-                explanation: "2400 = P×5×5/100; P = 9600"
-            },
-            {
-                q: "A sum of Rs. 15000 amounts to Rs. 16500 in 4 years at simple interest. What is the rate of interest?",
-                options: ["2.5%", "10%", "8%", "12%"],
-                correct: 0,
-                explanation: "1500 = 15000×4×R/100; R = 2.5%"
-            },
-            {
-                q: "A man took a loan at 9% p.a. simple interest. After 6 years he paid Rs. 5400 interest. The principal amount borrowed was:",
-                options: ["Rs. 2000", "Rs. 10000", "Rs. 15000", "Rs. 20000"],
-                correct: 1,
-                explanation: "P = 100×5400/(9×6) = 10000"
-            },
-            {
-                q: "Calculate the simple interest on a loan of $7,000 taken for 3 years at an interest rate of 12% per year.",
-                options: ["$5020", "$2520", "$420", "$2550"],
-                correct: 1,
-                explanation: "SI = 7000 × 12 × 3 / 100 = 2520"
-            },
-            {
-                q: "Mohit pays Rs 7500 as an amount on the sum of Rs 4500 that he had borrowed for 2 years. Find the rate of interest.",
-                options: ["15%", "18%", "33.33%", "20%"],
-                correct: 2,
-                explanation: "3000 = 4500×2×R/100; R = 33.33%"
-            },
-            {
-                q: "Which formula is WRONG?",
-                options: ["Amount = Principle - Interest", "Amount = Principle + Interest", "Interest = Amount - Principle", "Principle = Amount - Interest"],
-                correct: 0,
-                explanation: "Amount cannot be less than Principle in simple interest"
-            },
-            {
-                q: "Ms. Aana Paul paid interest on principal plus interest of previous years. What type of interest?",
-                options: ["Compound Interest", "Simple Interest", "Simply Interest", "Amount"],
-                correct: 0,
-                explanation: "Compound Interest includes interest on interest"
-            },
-            {
-                q: "Interest calculated for fixed deposit in a bank is:",
-                options: ["Compound Interest", "Simple Interest", "Based on bank", "Based on account holder"],
-                correct: 0,
-                explanation: "Fixed deposits typically use compound interest"
-            },
-            {
-                q: "A sum of Rs. 12,500 amounts to Rs. 15,500 in 4 years. Find the simple interest.",
-                options: ["Rs. 2500", "Rs. 3000", "Rs. 3500", "Rs. 4000"],
-                correct: 1,
-                explanation: "SI = 15500 - 12500 = 3000"
-            },
-            {
-                q: "Nancy borrowed Rs 50,000 for 3 years at 4% per annum. Find the total amount to be paid.",
-                options: ["Rs. 54000", "Rs. 56000", "Rs. 58000", "Rs. 60000"],
-                correct: 1,
-                explanation: "SI = 6000; Amount = 50000 + 6000 = 56000"
-            },
-            {
-                q: "What principal will amount to Rs. 11,000 in 1 year at 10% simple interest?",
-                options: ["Rs. 10000", "Rs. 9000", "Rs. 11000", "Rs. 12000"],
-                correct: 0,
-                explanation: "11000 = P(1.1); P = 10000"
-            },
-            {
-                q: "What is the principal if simple interest earned is Rs. 1440 at 20% for 3 years?",
-                options: ["Rs. 2000", "Rs. 2400", "Rs. 2800", "Rs. 3000"],
-                correct: 1,
-                explanation: "1440 = P×3×20/100; P = 2400"
-            },
-            {
-                q: "Rs. 5000 at 8% p.a. for 2 years yields what simple interest?",
-                options: ["Rs. 600", "Rs. 700", "Rs. 800", "Rs. 900"],
-                correct: 2,
-                explanation: "SI = 5000×8×2/100 = 800"
-            }
-        ];
-
+        let questions = [];
         let score = 0;
-        let answered = new Array(questions.length).fill(false);
-        let selectedOptions = new Array(questions.length).fill(-1);
+        let answered = [];
+        let selectedOptions = [];
+        let currentPage = 1;
+        const questionsPerPage = 10;
+
+        async function loadQuestions() {
+            try {
+                const response = await fetch('questions.json');
+                questions = await response.json();
+                answered = new Array(questions.length).fill(false);
+                selectedOptions = new Array(questions.length).fill(-1);
+                document.getElementById('totalQuestions').textContent = questions.length;
+                document.getElementById('totalScore').textContent = questions.length;
+                document.getElementById('finalTotalScore').textContent = questions.length;
+                createQuestions();
+            } catch (error) {
+                console.error('Error loading questions:', error);
+                document.getElementById('questionsContainer').innerHTML = '<p class="text-danger">Failed to load questions. Please try again later.</p>';
+            }
+        }
 
         function typeWriter(element, text, speed, callback) {
             let i = 0;
@@ -327,34 +106,47 @@
 
         function createQuestions() {
             const container = document.getElementById('questionsContainer');
-            questions.forEach((q, index) => {
+            const isDarkTheme = document.getElementById('mainBody').classList.contains('bg-dark');
+            container.innerHTML = '';
+
+            const startIndex = (currentPage - 1) * questionsPerPage;
+            const endIndex = Math.min(startIndex + questionsPerPage, questions.length);
+            const currentQuestions = questions.slice(startIndex, endIndex);
+
+            currentQuestions.forEach((q, index) => {
+                const globalIndex = startIndex + index;
                 const card = document.createElement('div');
-                card.className = 'card shadow-sm mb-4 border-0';
-                card.id = `question-${index}`;
+                card.className = 'card shadow-sm mb-4 border-0' + (isDarkTheme ? ' bg-dark text-white border border-light' : '');
+                card.id = `question-${globalIndex}`;
                 
                 const optionsHTML = q.options.map((opt, optIndex) => `
                     <div class="mb-2">
-                        <button class="btn btn-outline-dark text-start option-btn" 
-                                onclick="selectOption(${index}, ${optIndex})"
-                                id="option-${index}-${optIndex}">
+                        <button class="btn ${isDarkTheme ? 'btn-outline-light' : 'btn-outline-dark'} text-start option-btn" 
+                                onclick="selectOption(${globalIndex}, ${optIndex})"
+                                id="option-${globalIndex}-${optIndex}"
+                                ${answered[globalIndex] ? 'disabled' : ''}>
                             <span class="me-2">${String.fromCharCode(65 + optIndex)}.</span>${opt}
-                            <span class="float-end" id="icon-${index}-${optIndex}"></span>
+                            <span class="float-end" id="icon-${globalIndex}-${optIndex}"></span>
                         </button>
                     </div>
                 `).join('');
 
                 card.innerHTML = `
                     <div class="card-body">
-                        <h5 class="card-title mb-3">
-                            <span class="badge bg-dark me-2">${index + 1}</span>
-                            <span id="question-text-${index}"></span>
+                        <h5 class="card-title mb-3 ${isDarkTheme ? 'text-white' : 'text-dark'}">
+                            <span class="badge ${isDarkTheme ? 'bg-secondary text-white' : 'bg-dark text-white'} me-2">${globalIndex + 1}</span>
+                            <span id="question-text-${globalIndex}"></span>
                         </h5>
                         <div class="mb-3">${optionsHTML}</div>
-                        <button class="btn btn-dark" onclick="checkAnswer(${index})" 
-                                id="check-btn-${index}" disabled>
+                        <button class="btn ${isDarkTheme ? 'btn-outline-light' : 'btn-outline-dark'}" 
+                                onclick="checkAnswer(${globalIndex})" 
+                                id="check-btn-${globalIndex}"
+                                ${answered[globalIndex] ? 'disabled' : ''}>
                             <i class="bi bi-check-circle me-2"></i>Check Answer
                         </button>
-                        <div class="alert alert-dark mt-3" id="explanation-${index}" style="display: none;">
+                        <div class="alert ${isDarkTheme ? 'alert-secondary' : 'alert-dark'} mt-3" 
+                             id="explanation-${globalIndex}" 
+                             style="display: ${answered[globalIndex] ? 'block' : 'none'};">
                             <strong><i class="bi bi-lightbulb me-2"></i>Explanation:</strong>
                             <p class="mb-0 mt-2">${q.explanation}</p>
                         </div>
@@ -363,12 +155,35 @@
                 
                 container.appendChild(card);
 
+                // Restore previous selections and states
+                if (selectedOptions[globalIndex] !== -1) {
+                    const selectedBtn = document.getElementById(`option-${globalIndex}-${selectedOptions[globalIndex]}`);
+                    selectedBtn.classList.add('active', 'btn-dark');
+                    selectedBtn.classList.remove(isDarkTheme ? 'btn-outline-light' : 'btn-outline-dark');
+                }
+                if (answered[globalIndex]) {
+                    const correctIndex = questions[globalIndex].correct;
+                    for (let i = 0; i < 4; i++) {
+                        const btn = document.getElementById(`option-${globalIndex}-${i}`);
+                        const icon = document.getElementById(`icon-${globalIndex}-${i}`);
+                        if (i === correctIndex) {
+                            btn.classList.remove('btn-outline-dark', 'btn-outline-light', 'btn-dark');
+                            btn.classList.add('btn-success');
+                            icon.innerHTML = '<i class="bi bi-check-circle-fill text-white"></i>';
+                        } else if (i === selectedOptions[globalIndex] && selectedOptions[globalIndex] !== correctIndex) {
+                            btn.classList.remove('btn-outline-dark', 'btn-outline-light', 'btn-dark');
+                            btn.classList.add('btn-danger');
+                            icon.innerHTML = '<i class="bi bi-x-circle-fill text-white"></i>';
+                        }
+                    }
+                }
+
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            const questionText = entry.target.querySelector(`#question-text-${index}`);
+                            const questionText = entry.target.querySelector(`#question-text-${globalIndex}`);
                             typeWriter(questionText, q.q, 15, () => {
-                                animateOptions(index);
+                                animateOptions(globalIndex);
                             });
                             observer.unobserve(entry.target);
                         }
@@ -377,28 +192,98 @@
 
                 observer.observe(card);
             });
+
+            createPagination();
+        }
+
+        function createPagination() {
+            const container = document.getElementById('paginationContainer');
+            container.innerHTML = '';
+            const totalPages = Math.ceil(questions.length / questionsPerPage);
+            const isDarkTheme = document.getElementById('mainBody').classList.contains('bg-dark');
+
+            const nav = document.createElement('nav');
+            nav.setAttribute('aria-label', 'Page navigation');
+            const ul = document.createElement('ul');
+            ul.className = 'pagination';
+
+            // Previous Button
+            const prevLi = document.createElement('li');
+            prevLi.className = 'page-item' + (currentPage === 1 ? ' disabled' : '');
+            const prevLink = document.createElement('a');
+            prevLink.className = 'page-link';
+            prevLink.href = '#';
+            prevLink.innerText = 'Previous';
+            prevLink.onclick = () => changePage(currentPage - 1);
+            prevLi.appendChild(prevLink);
+            ul.appendChild(prevLi);
+
+            // Page Number Buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.className = 'page-item' + (i === currentPage ? ' active' : '');
+                const link = document.createElement('a');
+                link.className = 'page-link';
+                link.href = '#';
+                link.innerText = i;
+                link.onclick = () => changePage(i);
+                li.appendChild(link);
+                ul.appendChild(li);
+            }
+
+            // Next Button
+            const nextLi = document.createElement('li');
+            nextLi.className = 'page-item' + (currentPage === totalPages ? ' disabled' : '');
+            const nextLink = document.createElement('a');
+            nextLink.className = 'page-link';
+            nextLink.href = '#';
+            nextLink.innerText = 'Next';
+            nextLink.onclick = () => changePage(currentPage + 1);
+            nextLi.appendChild(nextLink);
+            ul.appendChild(nextLi);
+
+            nav.appendChild(ul);
+            container.appendChild(nav);
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(questions.length / questionsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            createQuestions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function selectOption(questionIndex, optionIndex) {
             if (answered[questionIndex]) return;
 
+            // Reset all buttons and icons
             for (let i = 0; i < 4; i++) {
                 const btn = document.getElementById(`option-${questionIndex}-${i}`);
-                btn.classList.remove('active', 'btn-dark');
-                btn.classList.add('btn-outline-dark');
+                const isDarkTheme = document.getElementById('mainBody').classList.contains('bg-dark');
+                btn.classList.remove('active', 'btn-dark', 'btn-success', 'btn-danger', 'btn-outline-dark', 'btn-outline-light');
+                btn.classList.add(isDarkTheme ? 'btn-outline-light' : 'btn-outline-dark');
+                const icon = document.getElementById(`icon-${questionIndex}-${i}`);
+                icon.innerHTML = '';
             }
 
+            // Highlight selected option
             const selectedBtn = document.getElementById(`option-${questionIndex}-${optionIndex}`);
             selectedBtn.classList.add('active', 'btn-dark');
-            selectedBtn.classList.remove('btn-outline-dark');
-            
+            selectedBtn.classList.remove('btn-outline-dark', 'btn-outline-light');
             selectedOptions[questionIndex] = optionIndex;
 
-            document.getElementById(`check-btn-${questionIndex}`).disabled = false;
+            // Show green tick for correct option immediately
+            const correctIndex = questions[questionIndex].correct;
+            const correctBtn = document.getElementById(`option-${questionIndex}-${correctIndex}`);
+            const correctIcon = document.getElementById(`icon-${questionIndex}-${correctIndex}`);
+            correctBtn.classList.remove('btn-outline-dark', 'btn-outline-light', 'btn-dark');
+            correctBtn.classList.add('btn-success');
+            correctIcon.innerHTML = '<i class="bi bi-check-circle-fill text-white"></i>';
         }
 
         function checkAnswer(questionIndex) {
-            if (answered[questionIndex] || selectedOptions[questionIndex] === -1) return;
+            if (answered[questionIndex]) return;
 
             const selectedIndex = selectedOptions[questionIndex];
             const correctIndex = questions[questionIndex].correct;
@@ -411,11 +296,11 @@
                 const icon = document.getElementById(`icon-${questionIndex}-${i}`);
                 
                 if (i === correctIndex) {
-                    btn.classList.remove('btn-outline-dark', 'btn-dark');
+                    btn.classList.remove('btn-outline-dark', 'btn-outline-light', 'btn-dark');
                     btn.classList.add('btn-success');
                     icon.innerHTML = '<i class="bi bi-check-circle-fill text-white"></i>';
-                } else if (i === selectedIndex && selectedIndex !== correctIndex) {
-                    btn.classList.remove('btn-outline-dark', 'btn-dark');
+                } else if (i === selectedIndex && selectedIndex !== -1 && selectedIndex !== correctIndex) {
+                    btn.classList.remove('btn-outline-dark', 'btn-outline-light', 'btn-dark');
                     btn.classList.add('btn-danger');
                     icon.innerHTML = '<i class="bi bi-x-circle-fill text-white"></i>';
                 }
@@ -423,7 +308,7 @@
 
             document.getElementById(`explanation-${questionIndex}`).style.display = 'block';
 
-            if (selectedIndex === correctIndex) {
+            if (selectedIndex === correctIndex && selectedIndex !== -1) {
                 score++;
                 document.getElementById('score').textContent = score;
                 document.getElementById('finalScore').textContent = score;
@@ -435,42 +320,97 @@
         function toggleTheme() {
             const body = document.getElementById('mainBody');
             const cards = document.querySelectorAll('.card');
+            const formulaCard = document.getElementById('formulaCard');
+            const scoreBadge = document.getElementById('scoreBadge');
             const style = document.createElement('style');
             
             if (body.classList.contains('bg-light')) {
                 body.classList.remove('bg-light');
                 body.classList.add('bg-dark');
                 
+                // Update text, badge, and button colors
+                document.querySelectorAll('.text-dark').forEach(el => {
+                    el.classList.remove('text-dark');
+                    el.classList.add('text-white');
+                });
+                document.querySelectorAll('.text-muted').forEach(el => {
+                    el.classList.remove('text-muted');
+                    el.classList.add('text-light');
+                });
+                document.querySelectorAll('.badge.bg-dark').forEach(el => {
+                    el.classList.remove('bg-dark');
+                    el.classList.add('bg-secondary');
+                });
+                document.querySelectorAll('.btn-outline-dark').forEach(el => {
+                    el.classList.remove('btn-outline-dark');
+                    el.classList.add('btn-outline-light');
+                });
+                document.querySelectorAll('.alert-dark').forEach(el => {
+                    el.classList.remove('alert-dark');
+                    el.classList.add('alert-secondary');
+                });
+                
+                // Ensure formula card remains dark with white text
+                formulaCard.querySelector('.card-body').classList.add('bg-dark', 'text-white');
+                
                 // Add dark theme styles
                 style.id = 'darkThemeStyles';
                 style.innerHTML = `
+                    .bg-dark .card-body {
+                        background-color: #343a40 !important;
+                        color: #f8f9fa !important;
+                    }
                     .bg-dark .option-btn {
-                        color: white !important;
-                        border-color: white !important;
+                        color: #f8f9fa !important;
+                        border-color: #f8f9fa !important;
+                        background-color: transparent !important;
                     }
                     .bg-dark .option-btn:hover {
-                        background-color: white !important;
-                        color: black !important;
+                        background-color: #6c757d !important;
+                        color: #f8f9fa !important;
                     }
                     .bg-dark .option-btn.active {
-                        background-color: white !important;
-                        color: black !important;
+                        background-color: #f8f9fa !important;
+                        color: #212529 !important;
                     }
                     .bg-dark .btn-success {
                         background-color: #198754 !important;
                         border-color: #198754 !important;
-                        color: white !important;
+                        color: #f8f9fa !important;
                     }
                     .bg-dark .btn-danger {
                         background-color: #dc3545 !important;
                         border-color: #dc3545 !important;
-                        color: white !important;
+                        color: #f8f9fa !important;
+                    }
+                    .bg-dark .alert-secondary {
+                        background-color: #495057 !important;
+                        color: #f8f9fa !important;
+                    }
+                    .bg-dark .badge.bg-secondary {
+                        background-color: #6c757d !important;
+                        color: #f8f9fa !important;
+                    }
+                    .bg-dark .page-link {
+                        background-color: #343a40 !important;
+                        color: #f8f9fa !important;
+                        border-color: #f8f9fa !important;
+                    }
+                    .bg-dark .page-item.active .page-link {
+                        background-color: #6c757d !important;
+                        color: #f8f9fa !important;
+                        border-color: #f8f9fa !important;
+                    }
+                    .bg-dark .page-item.disabled .page-link {
+                        background-color: #343a40 !important;
+                        color: #6c757d !important;
+                        border-color: #6c757d !important;
                     }
                 `;
                 document.head.appendChild(style);
                 
                 cards.forEach(card => {
-                    if (!card.querySelector('.bg-dark.text-white')) {
+                    if (!card.id === 'formulaCard' && !card.querySelector('.bg-dark.text-white')) {
                         card.classList.add('bg-dark', 'text-white', 'border', 'border-light');
                     }
                 });
@@ -478,22 +418,71 @@
                 body.classList.remove('bg-dark');
                 body.classList.add('bg-light');
                 
+                // Revert text, badge, button, and alert colors
+                document.querySelectorAll('.text-white:not(.badge .text-white):not(#formulaCard .text-white)').forEach(el => {
+                    el.classList.remove('text-white');
+                    el.classList.add('text-dark');
+                });
+                document.querySelectorAll('.text-light').forEach(el => {
+                    el.classList.remove('text-light');
+                    el.classList.add('text-muted');
+                });
+                document.querySelectorAll('.badge.bg-secondary').forEach(el => {
+                    el.classList.remove('bg-secondary');
+                    el.classList.add('bg-dark');
+                });
+                document.querySelectorAll('.btn-outline-light').forEach(el => {
+                    el.classList.remove('btn-outline-light');
+                    el.classList.add('btn-outline-dark');
+                });
+                document.querySelectorAll('.alert-secondary').forEach(el => {
+                    el.classList.remove('alert-secondary');
+                    el.classList.add('alert-dark');
+                });
+                
+                // Ensure formula card remains dark with white text
+                formulaCard.querySelector('.card-body').classList.add('bg-dark', 'text-white');
+                
                 // Remove dark theme styles
                 const existingStyle = document.getElementById('darkThemeStyles');
                 if (existingStyle) {
                     existingStyle.remove();
                 }
                 
+                // Revert card styles
                 cards.forEach(card => {
-                    card.classList.remove('bg-dark', 'text-white', 'border', 'border-light');
+                    if (card.id !== 'formulaCard') {
+                        card.classList.remove('bg-dark', 'text-white', 'border', 'border-light');
+                    }
+                });
+
+                // Reset pagination styles to default
+                document.querySelectorAll('.page-link').forEach(link => {
+                    link.style.backgroundColor = '';
+                    link.style.color = '';
+                    link.style.borderColor = '';
+                });
+                document.querySelectorAll('.page-item.active .page-link').forEach(link => {
+                    link.style.backgroundColor = '';
+                    link.style.color = '';
+                    link.style.borderColor = '';
+                });
+                document.querySelectorAll('.page-item.disabled .page-link').forEach(link => {
+                    link.style.backgroundColor = '';
+                    link.style.color = '';
+                    link.style.borderColor = '';
                 });
             }
+
+            // Refresh questions to apply correct theme styles
+            createQuestions();
         }
 
         function resetQuiz() {
             score = 0;
             answered = new Array(questions.length).fill(false);
             selectedOptions = new Array(questions.length).fill(-1);
+            currentPage = 1;
             document.getElementById('score').textContent = '0';
             document.getElementById('finalScore').textContent = '0';
             document.getElementById('questionsContainer').innerHTML = '';
@@ -501,7 +490,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        window.addEventListener('load', createQuestions);
+        window.addEventListener('load', loadQuestions);
     </script>
 </body>
 </html>
