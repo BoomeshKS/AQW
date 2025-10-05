@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Interest Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light" id="mainBody">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Header -->
+                <div class="card shadow-sm mb-4 border-0">
+                    <div class="card-body text-center py-4">
+                        <h1 class="display-5 fw-bold mb-3">Simple Interest Quiz</h1>
+                        <p class="lead text-muted mb-3">Test Your Knowledge - 40 Questions</p>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <button class="btn btn-dark" onclick="toggleTheme()">
+                                <i class="bi bi-moon-fill me-2"></i>Toggle Theme
+                            </button>
+                            <span class="badge bg-dark fs-6 px-4 py-2">Score: <span id="score">0</span>/40</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formula Card -->
+                <div class="card shadow-sm mb-4 border-0">
+                    <div class="card-body bg-dark text-white">
+                        <h5 class="mb-3"><i class="bi bi-calculator me-2"></i>Key Formula</h5>
+                        <p class="mb-2 fs-5"><strong>SI = (P × N × R) / 100</strong></p>
+                        <small>SI = Simple Interest | P = Principal | N = Time | R = Rate</small>
+                    </div>
+                </div>
+
+                <!-- Questions -->
+                <div id="questionsContainer"></div>
+
+                <!-- Result Summary -->
+                <div class="card shadow-sm border-0 mt-4">
+                    <div class="card-body text-center">
+                        <h4 class="mb-3">Quiz Summary</h4>
+                        <p class="lead">Your Score: <span id="finalScore" class="fw-bold text-dark">0</span>/40</p>
+                        <button class="btn btn-dark" onclick="resetQuiz()">
+                            <i class="bi bi-arrow-clockwise me-2"></i>Reset Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const questions = [
+            {
+                q: "A certain amount earns simple interest of Rs. 1750 after 5 years. If the rate of interest is 25%, what will be the Principal?",
+                options: ["Rs. 1000", "Rs. 1200", "Rs. 1750", "Rs. 1400"],
+                correct: 3,
+                explanation: "1750/5 = 350; 25% → 350; 100% → 1400"
+            },
+            {
+                q: "A sum fetched a total simple interest of Rs. 4200 at the rate of 5% p.a. in 5 years. What is the sum?",
+                options: ["Rs. 1680", "Rs. 42000", "Rs. 16800", "Rs. 25000"],
+                correct: 2,
+                explanation: "4200/5 = 840; 5% → 840; 100% → 16800"
+            },
+            {
+                q: "A sum of Rs. 12,500 amounts to Rs. 15,500 in 4 years at the rate of simple interest. What is the rate of interest?",
+                options: ["6%", "10%", "8%", "12%"],
+                correct: 0,
+                explanation: "SI = 15500 - 12500 = 3000; 3000 = 12500×4×r/100; r = 6%"
+            },
+            {
+                q: "A man took a loan from a bank at the rate of 12% p.a. simple interest. After 3 years he had to pay Rs. 5400 interest only. The principal amount borrowed was:",
+                options: ["Rs. 2000", "Rs. 15000", "Rs. 10000", "Rs. 20000"],
+                correct: 1,
+                explanation: "P = 100×5400/(12×3) = 15000"
+            },
+            {
+                q: "What would be the annual interest accrued on a deposit of Rs. 10,000 in a bank that pays 4% per annum rate of simple interest?",
+                options: ["Rs. 1000", "Rs. 500", "Rs. 1200", "Rs. 400"],
+                correct: 3,
+                explanation: "SI = 10000 × 4 × 1 / 100 = 400"
+            },
+            {
+                q: "Calculate the simple interest on a loan of $2,000 taken for 2 years at an interest rate of 6% per year.",
+                options: ["$520", "$240", "$420", "$250"],
+                correct: 1,
+                explanation: "SI = 2000 × 6 × 2 / 100 = 240"
+            },
+            {
+                q: "Mohit pays Rs 9000 as an amount on the sum of Rs 7000 that he had borrowed for 2 years. Find the rate of interest.",
+                options: ["15%", "18%", "14.29%", "20%"],
+                correct: 2,
+                explanation: "2000 = 7000×2×r/100; r = 14.29%"
+            },
+            {
+                q: "Rishav takes a loan of Rs 10000 from a bank for a period of 1 year. The rate of interest is 10% per annum. Find the amount he has to pay at the end of a year.",
+                options: ["Rs. 10000", "Rs. 1200", "Rs. 11000", "Rs. 1500"],
+                correct: 2,
+                explanation: "SI = 1000; Amount = P + SI = 10000 + 1000 = 11000"
+            },
+            {
+                q: "Namita borrowed Rs 50,000 for 3 years at the rate of 4% per annum. Find the interest accumulated at the end of 3 years.",
+                options: ["Rs. 12000", "Rs. 6000", "Rs. 2000", "Rs. 10000"],
+                correct: 1,
+                explanation: "SI = 50000×3×4/100 = 6000"
+            },
+            {
+                q: "A man invested Rs. 2400 at the rate of 20% p.a. on simple interest for T years and received Rs. 1440 as interest. Find 2T years.",
+                options: ["6 years", "3 years", "8 years", "10 years"],
+                correct: 0,
+                explanation: "20% → 480; 1440/t = 480; t = 3; 2T = 6 years"
+            },
+            {
+                q: "A certain amount earns simple interest of Rs. 1500 after 5 years. If the rate of interest is 25%, what will be the Principal?",
+                options: ["Rs. 1000", "Rs. 1200", "Rs. 350", "Rs. 1400"],
+                correct: 1,
+                explanation: "1500/5 = 300; 25% → 300; 100% → 1200"
+            },
+            {
+                q: "A man took a loan from a bank at the rate of 10% p.a. simple interest. After 3 years he had to pay Rs. 6000 interest only. The principal amount borrowed was:",
+                options: ["Rs. 18000", "Rs. 20000", "Rs. 10000", "Rs. 28000"],
+                correct: 1,
+                explanation: "P = 100×6000/(10×3) = 20000"
+            },
+            {
+                q: "Calculate the simple interest on a loan of $2,000 taken for 2 years at an interest rate of 5% per year.",
+                options: ["$520", "$200", "$420", "$250"],
+                correct: 1,
+                explanation: "SI = 2000 × 2 × 5 / 100 = 200"
+            },
+            {
+                q: "Arun pays Rs 9000 as an amount on the sum of Rs 7000 that he had borrowed for 2 years. Find the rate of interest.",
+                options: ["15%", "18%", "14.29%", "20%"],
+                correct: 2,
+                explanation: "2000 = 7000×2×r/100; r = 14.29%"
+            },
+            {
+                q: "Grace takes a loan of Rs 20000 from a bank for a period of 1 year. The rate of interest is 10% per annum. Find the amount to pay at the end of a year.",
+                options: ["Rs. 10000", "Rs. 12000", "Rs. 22000", "Rs. 15000"],
+                correct: 2,
+                explanation: "SI = 2000; Amount = 20000 + 2000 = 22000"
+            },
+            {
+                q: "A man invested Rs. 12000 at the rate of 10% p.a. and earned simple interest of Rs. 7200. Find the time period.",
+                options: ["6 years", "3 years", "8 years", "10 years"],
+                correct: 0,
+                explanation: "1200 → 1 year; 7200 → 6 years"
+            },
+            {
+                q: "What is the time period for which Rs. 8000 amounts to Rs. 12000 at 20% p.a. of simple interest?",
+                options: ["2 years", "2.5 years", "3 years", "4 years"],
+                correct: 1,
+                explanation: "4000 = 8000×N×20/100; N = 2.5 years"
+            },
+            {
+                q: "A person takes a loan of Rs. 200 at 5% simple interest. He returns Rs. 100 at the end of one year. To clear his dues at the end of 2 years, he would pay:",
+                options: ["Rs. 115.5", "Rs. 125.5", "Rs. 110", "None of these"],
+                correct: 0,
+                explanation: "Year I interest = 10, paid 90 principal; Year II interest on 110 = 5.5; Total = 115.5"
+            },
+            {
+                q: "A sum fetched a total simple interest of Rs. 4016.25 at the rate of 18% p.a. in 5 years. What is the sum?",
+                options: ["Rs. 4462.5", "Rs. 8935", "Rs. 5866", "Rs. 8500"],
+                correct: 0,
+                explanation: "P = 4016.25×100/(5×18) = 4462.5"
+            },
+            {
+                q: "How much time will it take for an amount of Rs. 450 to yield Rs. 81 as interest at 5% per annum of simple interest?",
+                options: ["3.5 years", "3.6 years", "4.2 years", "5 years"],
+                correct: 1,
+                explanation: "81 = 450×N×5/100; N = 3.6 years"
+            },
+            {
+                q: "Reena took a loan of Rs. 1200 with simple interest for as many years as the rate of interest. If she paid Rs. 432 as interest, what was the rate of interest?",
+                options: ["3.6%", "4.6%", "6%", "4%"],
+                correct: 2,
+                explanation: "432 = 1200×R×R/100; R² = 36; R = 6%"
+            },
+            {
+                q: "Simple interest on Rs. 4,000 for 4 years is Rs. 2000. Find the rate of interest.",
+                options: ["3.6%", "4.6%", "12.5%", "4%"],
+                correct: 2,
+                explanation: "2000 = 4000×4×R/100; R = 12.5%"
+            },
+            {
+                q: "What would be the annual interest accrued on a deposit of Rs. 12,000 in a bank that pays 4% per annum rate of simple interest?",
+                options: ["Rs. 400", "Rs. 480", "Rs. 360", "Rs. 120"],
+                correct: 1,
+                explanation: "SI = 12000×1×4/100 = 480"
+            },
+            {
+                q: "When the interest is payable on the principal only, it is called:",
+                options: ["Compound Interest", "Simple Interest", "Simply Interest", "Amount"],
+                correct: 1,
+                explanation: "Simple Interest is calculated only on the principal amount"
+            },
+            {
+                q: "Interest calculated for loan in a bank is:",
+                options: ["Compound Interest", "Simple Interest", "Based on bank", "Based on account holder"],
+                correct: 2,
+                explanation: "Interest type depends on bank policies"
+            },
+            {
+                q: "What is the time period for which Rs. 6000 amounts to Rs. 12000 at 20% p.a. of simple interest?",
+                options: ["2 years", "5 years", "3 years", "4 years"],
+                correct: 1,
+                explanation: "6000 = 6000×N×20/100; N = 5 years"
+            },
+            {
+                q: "A sum of Rs. 12500 amounts to Rs. 15500 in 4 years. Find the rate of interest.",
+                options: ["6%", "10%", "8%", "12%"],
+                correct: 0,
+                explanation: "SI = 3000; 3000 = 12500×4×r/100; r = 6%"
+            },
+            {
+                q: "A sum fetched a total simple interest of Rs. 2400 at the rate of 5% p.a. in 5 years. What is the sum?",
+                options: ["Rs. 1680", "Rs. 4200", "Rs. 9600", "Rs. 2500"],
+                correct: 2,
+                explanation: "2400 = P×5×5/100; P = 9600"
+            },
+            {
+                q: "A sum of Rs. 15000 amounts to Rs. 16500 in 4 years at simple interest. What is the rate of interest?",
+                options: ["2.5%", "10%", "8%", "12%"],
+                correct: 0,
+                explanation: "1500 = 15000×4×R/100; R = 2.5%"
+            },
+            {
+                q: "A man took a loan at 9% p.a. simple interest. After 6 years he paid Rs. 5400 interest. The principal amount borrowed was:",
+                options: ["Rs. 2000", "Rs. 10000", "Rs. 15000", "Rs. 20000"],
+                correct: 1,
+                explanation: "P = 100×5400/(9×6) = 10000"
+            },
+            {
+                q: "Calculate the simple interest on a loan of $7,000 taken for 3 years at an interest rate of 12% per year.",
+                options: ["$5020", "$2520", "$420", "$2550"],
+                correct: 1,
+                explanation: "SI = 7000 × 12 × 3 / 100 = 2520"
+            },
+            {
+                q: "Mohit pays Rs 7500 as an amount on the sum of Rs 4500 that he had borrowed for 2 years. Find the rate of interest.",
+                options: ["15%", "18%", "33.33%", "20%"],
+                correct: 2,
+                explanation: "3000 = 4500×2×R/100; R = 33.33%"
+            },
+            {
+                q: "Which formula is WRONG?",
+                options: ["Amount = Principle - Interest", "Amount = Principle + Interest", "Interest = Amount - Principle", "Principle = Amount - Interest"],
+                correct: 0,
+                explanation: "Amount cannot be less than Principle in simple interest"
+            },
+            {
+                q: "Ms. Aana Paul paid interest on principal plus interest of previous years. What type of interest?",
+                options: ["Compound Interest", "Simple Interest", "Simply Interest", "Amount"],
+                correct: 0,
+                explanation: "Compound Interest includes interest on interest"
+            },
+            {
+                q: "Interest calculated for fixed deposit in a bank is:",
+                options: ["Compound Interest", "Simple Interest", "Based on bank", "Based on account holder"],
+                correct: 0,
+                explanation: "Fixed deposits typically use compound interest"
+            },
+            {
+                q: "A sum of Rs. 12,500 amounts to Rs. 15,500 in 4 years. Find the simple interest.",
+                options: ["Rs. 2500", "Rs. 3000", "Rs. 3500", "Rs. 4000"],
+                correct: 1,
+                explanation: "SI = 15500 - 12500 = 3000"
+            },
+            {
+                q: "Nancy borrowed Rs 50,000 for 3 years at 4% per annum. Find the total amount to be paid.",
+                options: ["Rs. 54000", "Rs. 56000", "Rs. 58000", "Rs. 60000"],
+                correct: 1,
+                explanation: "SI = 6000; Amount = 50000 + 6000 = 56000"
+            },
+            {
+                q: "What principal will amount to Rs. 11,000 in 1 year at 10% simple interest?",
+                options: ["Rs. 10000", "Rs. 9000", "Rs. 11000", "Rs. 12000"],
+                correct: 0,
+                explanation: "11000 = P(1.1); P = 10000"
+            },
+            {
+                q: "What is the principal if simple interest earned is Rs. 1440 at 20% for 3 years?",
+                options: ["Rs. 2000", "Rs. 2400", "Rs. 2800", "Rs. 3000"],
+                correct: 1,
+                explanation: "1440 = P×3×20/100; P = 2400"
+            },
+            {
+                q: "Rs. 5000 at 8% p.a. for 2 years yields what simple interest?",
+                options: ["Rs. 600", "Rs. 700", "Rs. 800", "Rs. 900"],
+                correct: 2,
+                explanation: "SI = 5000×8×2/100 = 800"
+            }
+        ];
+
+        let score = 0;
+        let answered = new Array(questions.length).fill(false);
+        let selectedOptions = new Array(questions.length).fill(-1);
+
+        function typeWriter(element, text, speed, callback) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            type();
+        }
+
+        function animateOptions(questionIndex) {
+            const options = document.querySelectorAll(`#question-${questionIndex} .option-btn`);
+            options.forEach((option, index) => {
+                setTimeout(() => {
+                    option.classList.add('show-option');
+                }, index * 200);
+            });
+        }
+
+        function createQuestions() {
+            const container = document.getElementById('questionsContainer');
+            questions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'card shadow-sm mb-4 border-0';
+                card.id = `question-${index}`;
+                
+                const optionsHTML = q.options.map((opt, optIndex) => `
+                    <div class="mb-2">
+                        <button class="btn btn-outline-dark text-start option-btn" 
+                                onclick="selectOption(${index}, ${optIndex})"
+                                id="option-${index}-${optIndex}">
+                            <span class="me-2">${String.fromCharCode(65 + optIndex)}.</span>${opt}
+                            <span class="float-end" id="icon-${index}-${optIndex}"></span>
+                        </button>
+                    </div>
+                `).join('');
+
+                card.innerHTML = `
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">
+                            <span class="badge bg-dark me-2">${index + 1}</span>
+                            <span id="question-text-${index}"></span>
+                        </h5>
+                        <div class="mb-3">${optionsHTML}</div>
+                        <button class="btn btn-dark" onclick="checkAnswer(${index})" 
+                                id="check-btn-${index}" disabled>
+                            <i class="bi bi-check-circle me-2"></i>Check Answer
+                        </button>
+                        <div class="alert alert-dark mt-3" id="explanation-${index}" style="display: none;">
+                            <strong><i class="bi bi-lightbulb me-2"></i>Explanation:</strong>
+                            <p class="mb-0 mt-2">${q.explanation}</p>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const questionText = entry.target.querySelector(`#question-text-${index}`);
+                            typeWriter(questionText, q.q, 15, () => {
+                                animateOptions(index);
+                            });
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                observer.observe(card);
+            });
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (answered[questionIndex]) return;
+
+            for (let i = 0; i < 4; i++) {
+                const btn = document.getElementById(`option-${questionIndex}-${i}`);
+                btn.classList.remove('active', 'btn-dark');
+                btn.classList.add('btn-outline-dark');
+            }
+
+            const selectedBtn = document.getElementById(`option-${questionIndex}-${optionIndex}`);
+            selectedBtn.classList.add('active', 'btn-dark');
+            selectedBtn.classList.remove('btn-outline-dark');
+            
+            selectedOptions[questionIndex] = optionIndex;
+
+            document.getElementById(`check-btn-${questionIndex}`).disabled = false;
+        }
+
+        function checkAnswer(questionIndex) {
+            if (answered[questionIndex] || selectedOptions[questionIndex] === -1) return;
+
+            const selectedIndex = selectedOptions[questionIndex];
+            const correctIndex = questions[questionIndex].correct;
+
+            answered[questionIndex] = true;
+
+            for (let i = 0; i < 4; i++) {
+                const btn = document.getElementById(`option-${questionIndex}-${i}`);
+                btn.disabled = true;
+                const icon = document.getElementById(`icon-${questionIndex}-${i}`);
+                
+                if (i === correctIndex) {
+                    btn.classList.remove('btn-outline-dark', 'btn-dark');
+                    btn.classList.add('btn-success');
+                    icon.innerHTML = '<i class="bi bi-check-circle-fill text-white"></i>';
+                } else if (i === selectedIndex && selectedIndex !== correctIndex) {
+                    btn.classList.remove('btn-outline-dark', 'btn-dark');
+                    btn.classList.add('btn-danger');
+                    icon.innerHTML = '<i class="bi bi-x-circle-fill text-white"></i>';
+                }
+            }
+
+            document.getElementById(`explanation-${questionIndex}`).style.display = 'block';
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                document.getElementById('score').textContent = score;
+                document.getElementById('finalScore').textContent = score;
+            }
+
+            document.getElementById(`check-btn-${questionIndex}`).disabled = true;
+        }
+
+        function toggleTheme() {
+            const body = document.getElementById('mainBody');
+            const cards = document.querySelectorAll('.card');
+            
+            if (body.classList.contains('bg-light')) {
+                body.classList.remove('bg-light');
+                body.classList.add('bg-dark');
+                cards.forEach(card => {
+                    if (!card.querySelector('.bg-dark.text-white')) {
+                        card.classList.add('bg-dark', 'text-white', 'border', 'border-secondary');
+                    }
+                });
+            } else {
+                body.classList.remove('bg-dark');
+                body.classList.add('bg-light');
+                cards.forEach(card => {
+                    card.classList.remove('bg-dark', 'text-white', 'border', 'border-secondary');
+                });
+            }
+        }
+
+        function resetQuiz() {
+            score = 0;
+            answered = new Array(questions.length).fill(false);
+            selectedOptions = new Array(questions.length).fill(-1);
+            document.getElementById('score').textContent = '0';
+            document.getElementById('finalScore').textContent = '0';
+            document.getElementById('questionsContainer').innerHTML = '';
+            createQuestions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('load', createQuestions);
+    </script>
+</body>
+</html>
